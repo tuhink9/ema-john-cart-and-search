@@ -1,34 +1,41 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import useCart from '../../hooks/useCart';
+import useProducts from '../../hooks/useProducts';
+import { removeFromDb } from '../../utilities/fakedb';
 import Cart from '../Cart/Cart';
 import ReviewItem from '../ReviewItem/ReviewItem';
-import useCart from '../useProducts/useCart';
-import useProducts from '../useProducts/useProducts';
+import './Orders.css';
 
 const Orders = () => {
-    const [products, setProducts] = useProducts([]);
-    const [cart, setCart] = useCart([]);
-
-    const handleRemoveItem = product => {
+    const [products, setProducts] = useProducts();
+    const [cart, setCart] = useCart(products);
+    const navigate = useNavigate();
+    const handleRemoveProduct = product =>{
         const rest = cart.filter(pd => pd.id !== product.id);
         setCart(rest);
+        removeFromDb(product.id);
     }
+
+    
     return (
         <div className='shop-container'>
-            <div className="producs-container">
+            <div className="review-items-container">
                 {
-                    products.map(product=><ReviewItem 
+                    cart.map(product => <ReviewItem
                         key={product.id}
-                        handleRemoveItem={handleRemoveItem}
-                        product={product}
-                        ></ReviewItem>)
+                        product ={product}
+                        handleRemoveProduct = {handleRemoveProduct}
+                    ></ReviewItem>)
                 }
             </div>
             <div className="cart-container">
-                <Cart cart={cart}></Cart>
+                <Cart cart={cart}>
+                        <button onClick={()=>navigate('/inventory')}>Proceed Checkout </button>
+                </Cart>
             </div>
         </div>
     );
 };
-
 
 export default Orders;

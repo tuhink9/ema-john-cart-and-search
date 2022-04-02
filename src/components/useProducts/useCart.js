@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { addToDb } from '../../utilities/fakedb';
+import { getStoredCart } from '../../utilities/fakedb';
 
 const useCart = (products) => {
     const [cart, setCart] = useState([]);
@@ -7,7 +7,7 @@ const useCart = (products) => {
     
 
     useEffect(() =>{
-        const storedCart = addToDb();
+        const storedCart = getStoredCart();
         const savedCart = []
         for (const id in storedCart) {
             const addedProduct = products.find(product => product.id === id)
