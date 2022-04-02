@@ -1,0 +1,32 @@
+.review-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 620px;
+    border: 2px solid gray;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.img-container img {
+    width: 91px;
+    border-radius: 10px 0px 0px 10px;
+}
+
+.info-container h1{
+    margin: 0;
+}
+
+.info-container p{
+    margin: 0;
+}
+
+.dlt-icon {
+    color: rgb(236, 99, 99);
+}
+
+.dlt-btn {
+    background-color: rgb(211, 147, 147);
+    border-radius: 20px;
+    border: none;
+}
